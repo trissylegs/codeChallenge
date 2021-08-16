@@ -1,16 +1,17 @@
-# This is a sample Python script.
+#
+# Uses debug to print actions that would cause the robot to fall off the edge.
+#
+import logging
+import sys
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from robot import Robot
+from action_parser import parse
+from table import Table
+from graphics import get_graphics
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    table = Table(5, 5)
+    g = get_graphics(5, 5)
+    robot = Robot(table, g, output=sys.stdout)
+    for action in parse(sys.stdin):
+        action.perform_step(robot)
