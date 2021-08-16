@@ -1,3 +1,6 @@
+"""
+Contains class for representing a Direction that the robot can travel in.
+"""
 from enum import Enum
 from typing import Tuple
 
@@ -27,16 +30,20 @@ class Direction(Enum):
             return -1, 0
         raise ValueError("Invalid Direction")
 
-    def turn_cw(self, turns: int):
+    def turn_cc(self, turns: int):
         """
         Change the direction in a multiple of 90 degrees clockwise
         :param turns: 90 degree turns to perform.
         :return: the resulting direction
         """
-        return Direction((4 + self.value + turns) % 4)
+        return Direction((4 + self.value - turns) % 4)
 
     @property
     def degrees(self) -> float:
+        """
+        Return the direction as a positive degrees value. I.e. EAST is 0 and SOUTH is 270.
+        :return: float value of degress rotation from EAST in a counter-clockwise direction.
+        """
         if self == Direction.NORTH:
             return 90
         if self == Direction.EAST:
@@ -45,6 +52,7 @@ class Direction(Enum):
             return 270
         if self == Direction.WEST:
             return 180
+        raise ValueError("Invalid direction")
 
     @property
     def left(self):
@@ -52,7 +60,7 @@ class Direction(Enum):
         Immediately to the left
         :return: 90 degrees left of this direction
         """
-        return self.turn_cw(-1)
+        return self.turn_cc(1)
 
     @property
     def right(self):
@@ -60,4 +68,4 @@ class Direction(Enum):
         Immediately to the right
         :return: 90 degrees right of this direction
         """
-        return self.turn_cw(1)
+        return self.turn_cc(-1)

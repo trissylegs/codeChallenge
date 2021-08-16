@@ -1,7 +1,7 @@
-#
-# Uses debug to print actions that would cause the robot to fall off the edge.
-#
-import logging
+"""
+Program simluates a robot moving around a table without falling off.
+Main module. Runs the program with stdio.
+"""
 import sys
 
 from robot import Robot
